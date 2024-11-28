@@ -68,3 +68,30 @@ void OLED_SetCursor(uint8_t x, uint8_t y) {
     I2C_WriteCommand(0x00 | (x & 0x0F)); // Set lower column address
     I2C_WriteCommand(0x10 | (x >> 4)); // Set higher column address
 }
+void OLED_PrintChar(char c) {
+
+        if (c < 32 || c > 126) {
+            return;  // Invalid character, ignore
+        }
+
+        uint8_t i;
+        for (i = 0; i < 5; i++) {
+
+            I2C_WriteData(font[c - 32][i]);
+        }
+
+
+        cursorX += 6;
+
+        if (cursorX >= 128) {
+            cursorX = 0;
+            cursorY += 8;
+
+           if (cursorY >= 64) {
+                cursorY = 0;
+            }
+        }
+
+        OLED_SetCursor(cursorX, cursorY);
+
+}
