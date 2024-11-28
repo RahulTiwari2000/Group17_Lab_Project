@@ -116,3 +116,12 @@ static void I2C_WriteCommand(uint8_t command) {
     I2C0_MCS_R = I2C_MCS_RUN | I2C_MCS_STOP;
     while (I2C0_MCS_R & I2C_MCS_BUSY);
 }
+static void I2C_WriteData(uint8_t data) {
+    I2C0_MSA_R = (OLED_I2C_ADDRESS << 1);
+    I2C0_MDR_R = 0x40; // Data mode
+    I2C0_MCS_R = I2C_MCS_START | I2C_MCS_RUN;
+    while (I2C0_MCS_R & I2C_MCS_BUSY);
+    I2C0_MDR_R = data;
+    I2C0_MCS_R = I2C_MCS_RUN | I2C_MCS_STOP;
+    while (I2C0_MCS_R & I2C_MCS_BUSY);
+}
