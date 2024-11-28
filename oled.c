@@ -95,3 +95,15 @@ void OLED_PrintChar(char c) {
         OLED_SetCursor(cursorX, cursorY);
 
 }
+void OLED_PrintString(const char *str) {
+    while (*str) {
+        OLED_PrintChar(*str++);
+    }
+}
+
+void OLED_PrintNumber(int num) {
+       char buffer[12];
+       snprintf(buffer, sizeof(buffer), "%d", num);
+       OLED_PrintString(buffer);
+
+       }
