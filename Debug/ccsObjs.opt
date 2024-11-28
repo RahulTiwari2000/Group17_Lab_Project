@@ -1,0 +1,7 @@
+"./font.obj"
+"./main.obj"
+"./oled.obj"
+"./tm4c123gh6pm_startup_ccs.obj"
+"../tm4c123gh6pm.cmd"
+-llibc.a
+-l"C:/Users/rahul/Downloads/driverlib.lib"
