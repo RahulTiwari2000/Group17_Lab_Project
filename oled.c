@@ -107,3 +107,12 @@ void OLED_PrintNumber(int num) {
        OLED_PrintString(buffer);
 
        }
+static void I2C_WriteCommand(uint8_t command) {
+    I2C0_MSA_R = (OLED_I2C_ADDRESS << 1); // Address with write bit
+    I2C0_MDR_R = 0x00; // Command mode
+    I2C0_MCS_R = I2C_MCS_START | I2C_MCS_RUN;
+    while (I2C0_MCS_R & I2C_MCS_BUSY);
+    I2C0_MDR_R = command;
+    I2C0_MCS_R = I2C_MCS_RUN | I2C_MCS_STOP;
+    while (I2C0_MCS_R & I2C_MCS_BUSY);
+}
