@@ -63,3 +63,8 @@ void OLED_Clear(void)
 page=0;
 col=0;
 }
+void OLED_SetCursor(uint8_t x, uint8_t y) {
+    I2C_WriteCommand(0xB0 | y); // Set page address
+    I2C_WriteCommand(0x00 | (x & 0x0F)); // Set lower column address
+    I2C_WriteCommand(0x10 | (x >> 4)); // Set higher column address
+}
