@@ -50,3 +50,16 @@ void OLED_Init(void) {
     I2C_WriteCommand(0xAF); // Display ON
 
 }
+void OLED_Clear(void)
+{
+    for (page=0; page < 8; page++)
+    {
+        OLED_SetCursor(0, page);
+        for (col=0; col < OLED_WIDTH; col++)
+        {
+            I2C_WriteData(0x00);
+        }
+    }
+page=0;
+col=0;
+}
